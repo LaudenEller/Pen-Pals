@@ -64,11 +64,11 @@ export const sendLetter = (letterObj) => {
     const fetchOptions = {
         method: "POST",
         headers: {
-            "content-type": "application/json"
+            "Content-Type": "application/json"
         },
         body: JSON.stringify(letterObj)
         }
-        return fetch(`${API}/letters`, fetchoptions)
+        return fetch(`${API}/letters`, fetchOptions)
         .then(response => response.json())
         .then(() => {
             mainContainer.dispatchEvent(new CustomEvent("stateChanged"))

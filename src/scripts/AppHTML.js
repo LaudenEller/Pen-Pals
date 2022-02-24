@@ -1,4 +1,3 @@
-//import the letter form and letters
 import { Letters } from "./Letters.js"
 import { letterForm } from "./LetterForm.js"
 import { Authors } from "./Authors.js"
@@ -6,8 +5,6 @@ import { Topics } from "./Topic.js"
 import { Recipients } from "./Recipients.js"
 import { sendLetter } from "./DataAccess.js"
 
-//export a function that returns the letter form 
-    //and letters functions within an HTML interpolated string
 export const appHTML = () => {
     return `
     <h1>Pen Pals Society</h1>
@@ -42,7 +39,7 @@ export const appHTML = () => {
 
     <section class="letters">
     <h1>Letters</h2>
-    ---Add Letter List---
+    ${ Letters() }
     </section>
     `
 }
@@ -54,22 +51,22 @@ const mainContainer = document.querySelector("#container")
 //add event listener to the submit new request button
 mainContainer.addEventListener("click", clickEvent => {
     if (clickEvent.target.id === "sendButton") {
-        //get what the user typed into the form fields
-        const userAuthorChoice = document.querySelector("input[id='authorSelectBox']").value
+        //get what the user inputted
+        const userAuthorChoice = document.querySelector("select[id='authorSelectBox']").value
         const userLetter = document.querySelector("input[name='letterForm']").value
-        const userTopicChoice = document.querySelector("input[class='topic']").value
-        const userRecipientChoice = document.querySelector("input[name='recipientSelectBox']").value
+        const [, userTopicChoice] = document.querySelector("input[type='radio']").id.split("--")
+        const userRecipientChoice = document.querySelector("select[id='recipientSelectBox']").value
 
-        // Make an object out of the user input
+        //make an object out of the user input
         const dataToSendToAPI = {
-            author: userAuthorChoice,
+            author: parseInt(userAuthorChoice),
             letter: userLetter,
-            topic: userTopicChoice,
-            recipient: userRecipientChoice,
-            date: date.now()
+            topic: parseInt(userTopicChoice),
+            recipient: parseInt(userRecipientChoice),
+            date: new Date().toLocaleDateString('en-US')
         }
 
-        // Send the data to the API for permanent storage
+        //send the data to the API for permanent storage
         sendLetter(dataToSendToAPI)
 
         //announce a state change for entire document causing the DOM to rerender

@@ -1,12 +1,12 @@
 //import authors and letters
-import { getAuthors, getRecipients, getLetters } from "./DataAccess.js"
+import { getAuthors, getRecipients, getLetters, getTopics } from "./DataAccess.js"
 
 //export a function that returns the letter object information in an HTML string
 export const Letters = () => {
     const letters = getLetters()
     //use find on recipients to get matching recipient
     const html = `<ul>
-    ${letters.map(letter => convertLettertoListElement(letter)).joion("")}
+    ${letters.map(letter => convertLettertoListElement(letter)).join("")}
     <ul`
     return html
 }
@@ -14,14 +14,19 @@ export const Letters = () => {
 const convertLettertoListElement = (letterObj) => {
     const authors = getAuthors()
     const recipients = getRecipients()
+    const topics = getTopics()
     
     //use find on authors to get matching author
     const foundAuthor = authors.find(author => {
-        return author.name === letterObj.author
+        return author.id === letterObj.author
     })
     
     const foundRecipient = recipients.find(recipient => {
-        return recipient.name === letterObj.recipient
+        return recipient.id === parseInt(letterObj.recipient)
+    })
+
+    const foundTopic = topics.find(topic => {
+        return topic.id === parseInt(letterObj.topic)
     })
 
     let html = `<li style="list-style-type: none;">
@@ -30,9 +35,9 @@ const convertLettertoListElement = (letterObj) => {
     
     ${letterObj.letter}
     
-    Sincerely, ${foundRecipient.name} (${foundrecipient.email})
+    Sincerely, ${foundRecipient.name} (${foundRecipient.email})
     ${letterObj.date}
-    ${letterObj.topic}
+    ${foundTopic.topic}
     </li>`
     return html
 }
