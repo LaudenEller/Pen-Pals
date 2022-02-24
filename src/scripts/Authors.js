@@ -1,8 +1,7 @@
 import { getAuthors } from "./DataAccess.js";
 
-const authors = getAuthors()
-
 export const Authors = () => {
+    const authors = getAuthors()
     let html = `<select id="authorSelectBox">
     <option value="0">Choose Author...</option>`
     for (const author of authors) {

@@ -1,6 +1,6 @@
 //import the HTML string function from AppHTML
-import { appHTML } from "./AppHTML.js"
-import { fetchLetters } from "./DataAccess.js"
+import { appHTML } from "./AppHtml.js"
+import { fetchAuthors, fetchLetters, fetchRecipients, fetchTopics } from "./DataAccess.js"
 
 //declare a querySelector that targets the main container
 const mainContainer = document.querySelector("#container")
@@ -10,7 +10,9 @@ const mainContainer = document.querySelector("#container")
 const render = () => {
     //Invoke fetches to update app stae from JSON
     fetchLetters()
-    .then(fetchLetters)
+    .then(() => fetchAuthors())
+    .then(() => fetchRecipients())
+    .then(() => fetchTopics())
     .then(
         () => {
             //Set the innerHTML of the main container to the SinkRepair function

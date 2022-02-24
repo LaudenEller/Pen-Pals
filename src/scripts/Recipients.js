@@ -1,8 +1,7 @@
 import { getRecipients } from "./DataAccess.js";
 
-const recipients = getRecipients()
-
 export const Recipients = () => {
+    const recipients = getRecipients()
     let html = `<select id="recipientSelectBox">
     <option value="0">Choose Recipient...</option>`
     for (const recipient of recipients) {

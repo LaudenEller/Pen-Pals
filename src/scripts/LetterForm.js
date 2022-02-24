@@ -1,5 +1,3 @@
-import { sendLetter } from "./DataAccess.js"
-
 //change this form to represent acutal desired html output (add radio buttons/fields/dropdown boxes where applicable)
 //Export a function that returns the letter form HTML
 export const letterForm = () => {
